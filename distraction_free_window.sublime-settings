@@ -1,0 +1,15 @@
+{
+  "dfw_hide_tabs": true,
+  "dfw_hide_status_bar": true,
+  "dfw_hide_minimap": true,
+  "dfw_hide_side_bar": true,
+
+  "dfw_hide_line_numbers": false,
+  "dfw_hide_fold_buttons": false,
+  "dfw_hide_gutter": false,
+
+  // Changing layout depends on `MaxPane` package
+  // Install it via package control:
+  // https://sublime.wbond.net/packages/MaxPane
+  "dfw_switch_to_single_layout": true
+}
