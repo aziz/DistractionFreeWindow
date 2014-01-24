@@ -1,5 +1,5 @@
 
-## Distraction Free Window for SublimeText 3
+## Distraction Free Window for SublimeText
 Sublime Text "Distraction free mode" but not full-screen! A windowed UI is more manageable and accessible yet it can be simple and sublime!
 
 Distraction free mode lets you focus on one thing and that is the code/text that you are writing. However, you can not use it for a long time, mostly because it is like living in a cave! but once in a while you need to come out for hunting!

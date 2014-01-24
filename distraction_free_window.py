@@ -1,6 +1,9 @@
 import sublime
 import sublime_plugin
 
+ST3 = int(sublime.version()) >= 3000
+
+
 class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
   def run(self):
@@ -43,6 +46,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
     if is_in_nm: # normal mode going to dfw mode
       # save original state
+      # print("-- normal mode going to dfw mode --")
       v.settings().set("dfw_mode_prestine", prestine)
 
       if settings.get("dfw_hide_minimap") and minimap_vis:
@@ -69,6 +73,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
       v.settings().set("dfw_mode", True)
 
     elif is_in_dfw: # dfw mode going to normal mode
+      # print("-- dfw mode going to normal mode --")
       prestine_state = v.settings().get("dfw_mode_prestine")
       # return to orginal
       if minimap_vis != prestine_state["minimap_vis"]:
@@ -132,8 +137,17 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     return v.settings().get("dfw_is_in_fs", False)
 
   def is_side_bar_visible(self, view):
-    v = view.window().active_view()
-    return v.settings().get("dfw_side_bar_vis", True)
+    if ST3:
+      v = view.window().active_view()
+      return v.settings().get("dfw_side_bar_vis", True)  
+    else: #ST2
+      v = view.window().active_view()
+      state1_w = v.viewport_extent()[0]
+      v.window().run_command("toggle_side_bar")
+      state2_w = v.viewport_extent()[0]
+      v.window().run_command("toggle_side_bar")
+      if state1_w and state2_w:
+        return (state1_w < state2_w)
 
 
 class DfwTestFsEvents(sublime_plugin.EventListener):
@@ -142,6 +156,7 @@ class DfwTestFsEvents(sublime_plugin.EventListener):
     if command_name != "toggle_full_screen":
       return None
 
+    # print("on toggle fullscreen called")
     pre_fs_height = window.active_view().viewport_extent()[1]
 
     def post_fs():
@@ -163,6 +178,7 @@ class DfwTestSideBarEvents(sublime_plugin.EventListener):
     if command_name != "toggle_side_bar":
       return None
 
+    # print("on toggle side bar called")
     pre_width = window.active_view().viewport_extent()[0]
 
     def post_toggle():
