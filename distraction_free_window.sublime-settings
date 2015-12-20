@@ -8,6 +8,10 @@
   "dfw_hide_fold_buttons": false,
   "dfw_hide_gutter": false,
 
+  // Be sure to set dfw_wrap_width when dfw_draw_centered is true
+  "dfw_draw_centered": false,
+  "dfw_wrap_width": 90,
+
   // Changing layout depends on `MaxPane` package
   // Install it via package control:
   // https://sublime.wbond.net/packages/MaxPane
