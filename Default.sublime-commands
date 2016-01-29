@@ -1,6 +1,6 @@
 [
     {
-        "caption": "Toggle Distractoin Free Window Mode",
+        "caption": "Toggle Distraction Free Window Mode",
         "command": "distraction_free_window"
     }
 ]
