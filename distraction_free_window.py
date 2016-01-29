@@ -10,14 +10,16 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     debug = False
     v = self.window.active_view()
     prestine = {}
-    prestine["minimap_vis"]      = minimap_vis      = self.is_minimap_visible(v)
-    prestine["status_bar_vis"]   = status_bar_vis   = self.is_status_bar_visible(v)
-    prestine["tabs_vis"]         = tabs_vis         = self.is_tabs_visible(v)
-    prestine["side_bar_vis"]     = side_bar_vis     = self.is_side_bar_visible(v)
+    prestine["minimap_vis"]      = minimap_vis       = self.is_minimap_visible(v)
+    prestine["status_bar_vis"]   = status_bar_vis    = self.is_status_bar_visible(v)
+    prestine["tabs_vis"]         = tabs_vis          = self.is_tabs_visible(v)
+    prestine["side_bar_vis"]     = side_bar_vis      = self.is_side_bar_visible(v)
 
-    prestine["gutter_vis"]       = gutter_vis       = v.settings().get("gutter")
-    prestine["line_numbers_vis"] = line_numbers_vis = v.settings().get("line_numbers")
-    prestine["fold_buttons_vis"] = fold_buttons_vis = v.settings().get("fold_buttons")
+    prestine["gutter_vis"]       = gutter_vis        = v.settings().get("gutter")
+    prestine["line_numbers_vis"] = line_numbers_vis  = v.settings().get("line_numbers")
+    prestine["fold_buttons_vis"] = fold_buttons_vis  = v.settings().get("fold_buttons")
+    prestine["draw_centered"]    = draw_centered_vis = v.settings().get("draw_centered")
+    prestine["wrap_width"]       = wrap_width_value  = v.settings().get("wrap_width")
 
     is_in_dfm = self.is_in_dfm(v)
     is_in_fs  = self.is_in_fs(v)
@@ -27,19 +29,21 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     if debug:
       print("-------------------------")
       print("-------------------------")
-      print("gutter:      ", gutter_vis)
-      print("line_numbers:", line_numbers_vis)
-      print("fold_buttons:", fold_buttons_vis)
+      print("gutter:       ", gutter_vis)
+      print("line_numbers: ", line_numbers_vis)
+      print("fold_buttons: ", fold_buttons_vis)
       print("-------------------------")
-      print("minimap:     ", minimap_vis)
-      print("status_bar:  ", status_bar_vis)
-      print("tabs:        ", tabs_vis)
-      print("side_bar:    ", side_bar_vis)
+      print("minimap:      ", minimap_vis)
+      print("status_bar:   ", status_bar_vis)
+      print("tabs:         ", tabs_vis)
+      print("side_bar:     ", side_bar_vis)
+      print("draw_centered:", draw_centered_vis)
+      print("wrap_size:    ", wrap_width_value)
       print("-------------------------")
-      print("in dfm:      ", is_in_dfm)
-      print("in fs:       ", is_in_fs)
-      print("in nm:       ", is_in_nm)
-      print("in dfw:      ", is_in_dfw)
+      print("in dfm:       ", is_in_dfm)
+      print("in fs:        ", is_in_fs)
+      print("in nm:        ", is_in_nm)
+      print("in dfw:       ", is_in_dfw)
       print("-------------------------")
 
     settings = sublime.load_settings("distraction_free_window.sublime-settings")
@@ -64,6 +68,9 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         v.settings().set("line_numbers", False)
       if settings.get("dfw_hide_fold_buttons"):
         v.settings().set("fold_buttons", False)
+      if settings.get("dfw_draw_centered"):
+        v.settings().set("draw_centered", True)
+        v.settings().set("wrap_width", settings.get("dfw_wrap_width"))
 
       # changing layout
       if settings.get("dfw_switch_to_single_layout"):
@@ -91,6 +98,9 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         v.settings().erase("line_numbers")
       if settings.get("dfw_hide_fold_buttons"):
         v.settings().erase("fold_buttons")
+      if settings.get("dfw_draw_centered"):
+        v.settings().erase("draw_centered")
+        v.settings().erase("wrap_width")
 
       # changing layout
       if settings.get("dfw_switch_to_single_layout"):
@@ -139,7 +149,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
   def is_side_bar_visible(self, view):
     if ST3:
       v = view.window().active_view()
-      return v.settings().get("dfw_side_bar_vis", True)  
+      return v.settings().get("dfw_side_bar_vis", True)
     else: #ST2
       v = view.window().active_view()
       state1_w = v.viewport_extent()[0]
