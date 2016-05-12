@@ -62,6 +62,9 @@ of it.
   "dfw_hide_minimap": true,
   "dfw_hide_side_bar": true,
 
+  "dfw_hide_rulers": true,
+  "dfw_hide_indent_guides": true,
+  "dfw_hide_white_space": true,
   "dfw_hide_line_numbers": false,
   "dfw_hide_fold_buttons": false,
   "dfw_hide_gutter": false,

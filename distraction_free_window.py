@@ -10,16 +10,19 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     debug = False
     v = self.window.active_view()
     prestine = {}
-    prestine["minimap_vis"]      = minimap_vis       = self.is_minimap_visible(v)
-    prestine["status_bar_vis"]   = status_bar_vis    = self.is_status_bar_visible(v)
-    prestine["tabs_vis"]         = tabs_vis          = self.is_tabs_visible(v)
-    prestine["side_bar_vis"]     = side_bar_vis      = self.is_side_bar_visible(v)
+    prestine["minimap_vis"]        = minimap_vis         = self.is_minimap_visible(v)
+    prestine["status_bar_vis"]     = status_bar_vis      = self.is_status_bar_visible(v)
+    prestine["tabs_vis"]           = tabs_vis            = self.is_tabs_visible(v)
+    prestine["side_bar_vis"]       = side_bar_vis        = self.is_side_bar_visible(v)
 
-    prestine["gutter_vis"]       = gutter_vis        = v.settings().get("gutter")
-    prestine["line_numbers_vis"] = line_numbers_vis  = v.settings().get("line_numbers")
-    prestine["fold_buttons_vis"] = fold_buttons_vis  = v.settings().get("fold_buttons")
-    prestine["draw_centered"]    = draw_centered_vis = v.settings().get("draw_centered")
-    prestine["wrap_width"]       = wrap_width_value  = v.settings().get("wrap_width")
+    prestine["gutter_vis"]         = gutter_vis          = v.settings().get("gutter")
+    prestine["line_numbers_vis"]   = line_numbers_vis    = v.settings().get("line_numbers")
+    prestine["fold_buttons_vis"]   = fold_buttons_vis    = v.settings().get("fold_buttons")
+    prestine["draw_centered"]      = draw_centered_vis   = v.settings().get("draw_centered")
+    prestine["wrap_width"]         = wrap_width_value    = v.settings().get("wrap_width")
+    prestine["rulers"]             = rulers_value        = v.settings().get("rulers")
+    prestine["draw_indent_guides"] = indent_guides_value = v.settings().get("draw_indent_guides")
+    prestine["draw_white_space"]   = white_space_value   = v.settings().get("draw_white_space")
 
     is_in_dfm = self.is_in_dfm(v)
     is_in_fs  = self.is_in_fs(v)
@@ -71,6 +74,12 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         v.settings().set("line_numbers", False)
       if settings.get("dfw_hide_fold_buttons"):
         v.settings().set("fold_buttons", False)
+      if settings.get("dfw_hide_rulers"):
+        v.settings().set("rulers", [])
+      if settings.get("dfw_hide_indent_guides"):
+        v.settings().set("draw_indent_guides", False)
+      if settings.get("dfw_hide_white_space"):
+        v.settings().set("draw_white_space", "none")
       if settings.get("dfw_draw_centered"):
         v.settings().set("draw_centered", True)
         v.settings().set("wrap_width", settings.get("dfw_wrap_width"))
@@ -104,6 +113,12 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         v.settings().erase("line_numbers")
       if settings.get("dfw_hide_fold_buttons"):
         v.settings().erase("fold_buttons")
+      if settings.get("dfw_hide_rulers"):
+        v.settings().erase("rulers")
+      if settings.get("dfw_hide_indent_guides"):
+        v.settings().erase("draw_indent_guides")
+      if settings.get("dfw_hide_white_space"):
+        v.settings().erase("draw_white_space")
       if settings.get("dfw_draw_centered"):
         v.settings().erase("draw_centered")
         v.settings().erase("wrap_width")
