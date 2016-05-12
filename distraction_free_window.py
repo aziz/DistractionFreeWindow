@@ -2,7 +2,7 @@ import sublime
 import sublime_plugin
 
 ST3 = int(sublime.version()) >= 3000
-
+ST3098 = int(sublime.version()) >= 3098
 
 class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
@@ -60,7 +60,10 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
       if settings.get("dfw_hide_tabs") and tabs_vis:
         v.window().run_command("toggle_tabs")
       if settings.get("dfw_hide_side_bar") and side_bar_vis:
-        v.window().run_command("toggle_side_bar")
+        if ST3098:
+          v.window().set_sidebar_visible(False)
+        else:
+          v.window().run_command("toggle_side_bar")
 
       if settings.get("dfw_hide_gutter"):
         v.settings().set("gutter", False)
@@ -90,7 +93,10 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
       if tabs_vis != prestine_state["tabs_vis"]:
         v.window().run_command("toggle_tabs")
       if side_bar_vis != prestine_state["side_bar_vis"]:
-        v.window().run_command("toggle_side_bar")
+        if ST3098:
+          v.window().set_sidebar_visible(prestine_state["side_bar_vis"])
+        else:
+          v.window().run_command("toggle_side_bar")
 
       if settings.get("dfw_hide_gutter"):
         v.settings().erase("gutter")
@@ -147,17 +153,19 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     return v.settings().get("dfw_is_in_fs", False)
 
   def is_side_bar_visible(self, view):
-    if ST3:
+    if ST3098:
+      return view.window().is_sidebar_visible()
+    else:
       v = view.window().active_view()
-      return v.settings().get("dfw_side_bar_vis", True)
-    else: #ST2
-      v = view.window().active_view()
-      state1_w = v.viewport_extent()[0]
-      v.window().run_command("toggle_side_bar")
-      state2_w = v.viewport_extent()[0]
-      v.window().run_command("toggle_side_bar")
-      if state1_w and state2_w:
-        return (state1_w < state2_w)
+      if ST3:
+        return v.settings().get("dfw_side_bar_vis", True)
+      else: # ST2
+        state1_w = v.viewport_extent()[0]
+        v.window().run_command("toggle_side_bar")
+        state2_w = v.viewport_extent()[0]
+        v.window().run_command("toggle_side_bar")
+        if state1_w and state2_w:
+          return (state1_w < state2_w)
 
 
 class DfwTestFsEvents(sublime_plugin.EventListener):
