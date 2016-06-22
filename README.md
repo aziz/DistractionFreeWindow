@@ -102,5 +102,5 @@ You can customize it by copying the below code into you User Key Bindings file (
 
 ## License
 
-DistractionFreeWindow plugin is released under the MIT license. See LICENSE file.
-Copyright (c) 2016 ([Allen Bargi](https://github.com/aziz))
+DistractionFreeWindow plugin is Copyright :copyright: 2016 [Allen Bargi](https://github.com/aziz) and released under the MIT license. See the [`LICENSE`](LICENSE) file for details.
+
