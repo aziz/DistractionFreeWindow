@@ -4,6 +4,16 @@
 [![Total downloads via Package Control](https://img.shields.io/packagecontrol/dt/DistractionFreeWindow.svg?style=flat-square)](https://packagecontrol.io/packages/DistractionFreeWindow)
 [![Monthly downloads via Package Control](https://img.shields.io/packagecontrol/dm/DistractionFreeWindow.svg?style=flat-square)](https://packagecontrol.io/packages/DistractionFreeWindow)
 
+<br>
+
+<p align="center">
+  <img width="750" src="docs/screencast.gif" alt="Screencast">
+</p>
+
+<br>
+
+> Screencast shows Gruvbox Theme & Color Scheme, Operator Mono Medium as font.
+
 Sublime Text "Distraction free mode" but not full-screen!
 A windowed UI is more manageable and accessible yet it can be simple and sublime!
 
@@ -17,15 +27,13 @@ When translating you need to look at the original source.
 This plugin makes it easy to go back and forth from the left side of the image below to the right side, with just a single key (or key combination, depending on your key bindings).
 The command to toggle between these two states is also available in Command Pallette.
 
-![Screencast of DistractionFreeWindow for SublimeText](docs/screencast.gif "Screencast")
-
 ## Installation
 
 ### Package Control
 
 1. Install the [Package Control plugin](https://packagecontrol.io/installation).
 2. Within Sublime Text, bring up the **Command Palette** and choose **Package Control: Install Package** command.
-3. Select `Disctraction Free Window`.
+3. Select `Distraction Free Window`.
 
 ### Manual installation
 
