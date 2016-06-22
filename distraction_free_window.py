@@ -3,6 +3,7 @@ import sublime_plugin
 
 ST3 = int(sublime.version()) >= 3000
 ST3098 = int(sublime.version()) >= 3098
+ST3116 = int(sublime.version()) >= 3116
 
 class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
@@ -133,31 +134,40 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
       v.settings().set("dfw_mode", False)
 
   def is_tabs_visible(self, view):
-    v = view.window().active_view()
-    state1_h = v.viewport_extent()[1]
-    v.window().run_command("toggle_tabs")
-    state2_h = v.viewport_extent()[1]
-    v.window().run_command("toggle_tabs")
-    if state1_h and state2_h:
-      return (state1_h < state2_h)
+    if ST3116:
+      return view.window().get_tabs_visible()
+    else:
+      v = view.window().active_view()
+      state1_h = v.viewport_extent()[1]
+      v.window().run_command("toggle_tabs")
+      state2_h = v.viewport_extent()[1]
+      v.window().run_command("toggle_tabs")
+      if state1_h and state2_h:
+        return (state1_h < state2_h)
 
   def is_minimap_visible(self, view):
-    v = view.window().active_view()
-    state1_w = v.viewport_extent()[0]
-    v.window().run_command("toggle_minimap")
-    state2_w = v.viewport_extent()[0]
-    v.window().run_command("toggle_minimap")
-    if state1_w and state2_w:
-      return (state1_w < state2_w)
+    if ST3116:
+      return view.window().is_minimap_visible()
+    else:
+      v = view.window().active_view()
+      state1_w = v.viewport_extent()[0]
+      v.window().run_command("toggle_minimap")
+      state2_w = v.viewport_extent()[0]
+      v.window().run_command("toggle_minimap")
+      if state1_w and state2_w:
+        return (state1_w < state2_w)
 
   def is_status_bar_visible(self, view):
-    v = view.window().active_view()
-    state1_h = v.viewport_extent()[1]
-    v.window().run_command("toggle_status_bar")
-    state2_h = v.viewport_extent()[1]
-    v.window().run_command("toggle_status_bar")
-    if state1_h and state2_h:
-      return (state1_h < state2_h)
+    if ST3116:
+      return view.window().is_status_bar_visible()
+    else:
+      v = view.window().active_view()
+      state1_h = v.viewport_extent()[1]
+      v.window().run_command("toggle_status_bar")
+      state2_h = v.viewport_extent()[1]
+      v.window().run_command("toggle_status_bar")
+      if state1_h and state2_h:
+        return (state1_h < state2_h)
 
   def is_in_dfm(self, view):
     v = view.window().active_view()
