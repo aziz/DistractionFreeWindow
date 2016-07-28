@@ -58,7 +58,7 @@ See the [settings section](#settings) in case you want to customize DistractionF
 
 ### Changing Layout
 
-If you have [MaxPane Plugin](https://sublime.wbond.net/packages/MaxPane) installed, this plugin will automatically use it and simplify the layout when you go to DistractionFreeWindow mode and restore the layout after comming out of it.
+Users of the [`MaxPane`](https://packagecontrol.io/packages/MaxPane) plug-in will appreciate that [`DistractionFreeWindow`](https://packagecontrol.io/packages/DistractionFreeWindow) directly integrates with it and simplifies the layout when you go into **DistractionFreeWindow mode** and restores the layout after comming back out of it.
 
 ## Customization
 
