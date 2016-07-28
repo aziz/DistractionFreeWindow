@@ -1,0 +1,30 @@
+[
+	{
+		"caption": "DistractionFreeWindow: Toggle Mode",
+		"command": "distraction_free_window"
+	},
+	{
+		"command": "open_file",
+		"args":
+		{
+			"file": "${packages}/DistractionFreeWindow/settings/distraction_free_window.sublime-settings"
+		},
+		"caption": "DistractionFreeWindow: Settings - Default"
+	},
+	{
+		"command": "open_file",
+		"args":
+		{
+			"file": "${packages}/User/distraction_free_window.sublime-settings"
+		},
+		"caption": "DistractionFreeWindow: Settings - User"
+	},
+	{
+		"command": "open_file",
+		"args":
+		{
+			"file": "${packages}/DistractionFreeWindow/input-maps/Default.sublime-keymap"
+		},
+		"caption": "DistractionFreeWindow: Key Bindings - Default"
+	}
+]
