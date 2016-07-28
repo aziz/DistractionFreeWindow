@@ -46,7 +46,7 @@ DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetex
 
 ### Manual installation
 
-* Select `Preferences > Browse Packages` from the main menu. Use the command line to `$ cd .../Packages` into that exact same folder, then `$ git clone git://github.com/aziz/DistractionFreeWindow.git`.
+* Select `Preferences > Browse Packages` from the main menu. Use the command line to `cd .../Packages` into that exact same folder, then `git clone git://github.com/aziz/DistractionFreeWindow.git`.
 * Or select `Preferences > Browse Packages` from the main menu, then create a subfolder named `DistractionFreeWindow` and unzip the contents of [a current snapshot of `master` as `*.zip`](https://github.com/aziz/DistractionFreeWindow/archive/master.zip) into it.
 
 ## Usage
