@@ -4,6 +4,8 @@
 import sublime
 import sublime_plugin
 
+
+DEBUG = False
 ST3 = int(sublime.version()) >= 3000
 ST3098 = int(sublime.version()) >= 3098
 ST3116 = int(sublime.version()) >= 3116
@@ -12,7 +14,6 @@ ST3116 = int(sublime.version()) >= 3116
 class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug = False
         w = self.window
         prestine = {}
         prestine['minimap_vis']        = minimap_vis         = self.is_minimap_visible(w)
@@ -34,7 +35,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         is_in_dfw = w.settings().get('dfw_mode', False)
         is_in_nm  = not (is_in_dfw or is_in_dfm or is_in_fs)
 
-        if debug:
+        if DEBUG:
             print('-------------------------')
             print('-------------------------')
             print('gutter:       ', gutter_vis)
@@ -58,7 +59,8 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
         if is_in_nm: # normal mode going to dfw mode
             # save original state
-            # print('-- normal mode going to dfw mode --')
+            if DEBUG:
+                print('-- normal mode going to dfw mode --')
             w.settings().set('dfw_mode_prestine', prestine)
 
             if settings.get('dfw_hide_minimap') and minimap_vis:
@@ -97,7 +99,8 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             w.settings().set('dfw_mode', True)
 
         elif is_in_dfw: # dfw mode going to normal mode
-            # print('-- dfw mode going to normal mode --')
+            if DEBUG:
+                print('-- dfw mode going to normal mode --')
             prestine_state = w.settings().get('dfw_mode_prestine')
             # return to orginal
             if minimap_vis != prestine_state['minimap_vis']:
@@ -201,7 +204,8 @@ class DfwTestFsEvents(sublime_plugin.EventListener):
         if command_name != 'toggle_full_screen':
             return None
 
-        # print('on toggle fullscreen called')
+        if DEBUG:
+            print('on toggle fullscreen called')
         pre_fs_height = window.active_view().viewport_extent()[1]
 
         def post_fs():
@@ -223,12 +227,14 @@ class DfwTestSideBarEvents(sublime_plugin.EventListener):
         if command_name != 'toggle_side_bar':
             return None
 
-        # print('on toggle side bar called')
+        if DEBUG:
+            print('on toggle side bar called')
         pre_width = window.active_view().viewport_extent()[0]
 
         def post_toggle():
             post_width = window.active_view().viewport_extent()[0]
-            #print(pre_width,post_width)
+            if DEBUG:
+                print(pre_width,post_width)
             if pre_width <= post_width:
                     side_bar_vis = False
             else:
