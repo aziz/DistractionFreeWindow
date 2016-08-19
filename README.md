@@ -1,6 +1,6 @@
 # [DistractionFreeWindow](https://github.com/aziz/DistractionFreeWindow) for [Sublime Text](https://www.sublimetext.com)
 
-[![GitHub license](https://img.shields.io/github/license/aziz/DistractionFreeWindow.svg?style=flat-square)](https://github.com/aziz/DistractionFreeWindow/blob/master/LICENSE.md)
+[![GitHub license](https://img.shields.io/github/license/aziz/DistractionFreeWindow.svg?style=flat-square)](https://github.com/aziz/DistractionFreeWindow/blob/master/LICENSE)
 [![Total downloads via Package Control](https://img.shields.io/packagecontrol/dt/DistractionFreeWindow.svg?style=flat-square)](https://packagecontrol.io/packages/DistractionFreeWindow)
 
 * [Description](#description)
@@ -72,4 +72,4 @@ You can adjust the default key binding <kbd>Super</kbd><kbd>F11</kbd> via `Prefe
 
 ## License
 
-MIT license, Copyright (C) 2014 [Allen Bargi](https://github.com/aziz). See the [`LICENSE.md`](LICENSE.md) file for details.
+MIT license, Copyright (C) 2014 [Allen Bargi](https://github.com/aziz). See the [`LICENSE`](LICENSE) file for details.
