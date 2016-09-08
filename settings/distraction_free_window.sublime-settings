@@ -3,6 +3,7 @@
     "dfw_hide_status_bar": true,
     "dfw_hide_minimap": true,
     "dfw_hide_side_bar": true,
+    "dfw_hide_menu": true,
 
     "dfw_hide_rulers": true,
     "dfw_hide_indent_guides": true,
