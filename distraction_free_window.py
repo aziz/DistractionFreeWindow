@@ -125,14 +125,16 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     def window_setting_set(self, setting_variable, setting_value):
         if ST3:
             self.window.settings().set(setting_variable, setting_value)
-        else for v in self.window.views():
-            v.settings().set(setting_variable, setting_value)
+        else:
+            for v in self.window.views():
+                v.settings().set(setting_variable, setting_value)
 
     def window_setting_erase(self, setting_variable):
         if ST3:
             self.window.settings().erase(setting_variable)
-        else for v in self.window.views():
-            v.settings().erase(setting_variable)
+        else:
+            for v in self.window.views():
+                v.settings().erase(setting_variable)
 
     def is_tabs_visible(self):
         if ST3116:
