@@ -3,19 +3,6 @@
 [![GitHub license](https://img.shields.io/github/license/aziz/DistractionFreeWindow.svg?style=flat-square)](https://github.com/aziz/DistractionFreeWindow/blob/master/LICENSE)
 [![Total downloads via Package Control](https://img.shields.io/packagecontrol/dt/DistractionFreeWindow.svg?style=flat-square)](https://packagecontrol.io/packages/DistractionFreeWindow)
 
-* [Description](#description)
-* [Installation](#installation)
-  * [Installation via Package Control](#installation-via-package-control)
-  * [Manual installation](#manual-installation)
-* [Usage](#usage)
-  * [Changing layout](#changing-layout)
-* [Customization](#customization)
-  * [Settings](#settings)
-  * [Key Bindings](#key-bindings)
-* [License](#license)
-
----
-
 <br>
 
 <p align="center">
@@ -24,7 +11,7 @@
 
 <br>
 
-> Screencast shows [Gruvbox Theme & Color Scheme](https://github.com/Briles/gruvbox), [Operator Mono](http://www.typography.com/fonts/operator/overview) Medium as font.
+> Screencast shows [gruvbox](https://github.com/Briles/gruvbox) Theme & Color Scheme, [Operator Mono](http://www.typography.com/fonts/operator/overview) Medium as font.
 
 ---
 
