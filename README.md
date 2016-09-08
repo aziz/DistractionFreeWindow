@@ -59,4 +59,4 @@ You can adjust the default key binding <kbd>Super</kbd><kbd>F11</kbd> via `Prefe
 
 ## License
 
-MIT license, Copyright (C) 2014 [Allen Bargi](https://github.com/aziz). See the [`LICENSE`](LICENSE) file for details.
+See the [`LICENSE`](LICENSE) for details.
