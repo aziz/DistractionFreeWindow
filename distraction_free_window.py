@@ -18,6 +18,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     prestine["status_bar_vis"]     = status_bar_vis      = self.is_status_bar_visible(v)
     prestine["tabs_vis"]           = tabs_vis            = self.is_tabs_visible(v)
     prestine["side_bar_vis"]       = side_bar_vis        = self.is_side_bar_visible(v)
+    prestine["menu_vis"]           = menu_vis            = self.is_menu_visible(v)
 
     prestine["gutter_vis"]         = gutter_vis          = v.settings().get("gutter")
     prestine["line_numbers_vis"]   = line_numbers_vis    = v.settings().get("line_numbers")
@@ -44,6 +45,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
       print("status_bar:   ", status_bar_vis)
       print("tabs:         ", tabs_vis)
       print("side_bar:     ", side_bar_vis)
+      print("menu:         ", menu_vis)
       print("draw_centered:", draw_centered_vis)
       print("wrap_size:    ", wrap_width_value)
       print("-------------------------")
@@ -71,6 +73,11 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
           v.window().set_sidebar_visible(False)
         else:
           v.window().run_command("toggle_side_bar")
+      if settings.get("dfw_hide_menu") and menu_vis:
+        if ST3098:
+          v.window().set_menu_visible(False)
+        else:
+          v.window().run_command("toggle_menu")
 
       if settings.get("dfw_hide_gutter"):
         v.settings().set("gutter", False)
@@ -110,6 +117,11 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
           v.window().set_sidebar_visible(prestine_state["side_bar_vis"])
         else:
           v.window().run_command("toggle_side_bar")
+      if menu_vis != prestine_state["menu_vis"]:
+        if ST3098:
+          v.window().set_menu_visible(prestine_state["menu_vis"])
+        else:
+          v.window().run_command("toggle_menu")
 
       if settings.get("dfw_hide_gutter"):
         v.settings().erase("gutter")
@@ -192,6 +204,21 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         v.window().run_command("toggle_side_bar")
         state2_w = v.viewport_extent()[0]
         v.window().run_command("toggle_side_bar")
+        if state1_w and state2_w:
+          return (state1_w < state2_w)
+
+  def is_menu_visible(self, view):
+    if ST3098:
+      return view.window().is_menu_visible()
+    else:
+      v = view.window().active_view()
+      if ST3:
+        return v.settings().get("dfw_menu_vis", True)
+      else: # ST2
+        state1_w = v.viewport_extent()[1]
+        v.window().run_command("toggle_menu")
+        state2_w = v.viewport_extent()[1]
+        v.window().run_command("toggle_menu")
         if state1_w and state2_w:
           return (state1_w < state2_w)
 
