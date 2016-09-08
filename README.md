@@ -38,7 +38,7 @@ DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetex
 
 ## Usage
 
-By default this plugin hides **tabs**, **status bar**, **side bar** and **minimap**.
+By default this plugin hides **tabs**, **status bar**, **side bar**, **menu** and **minimap**.
 You can also hide **line numbers**, **fold buttons**, **the whole gutter**.
 You can **center the text** and configure the width.
 See the [settings section](#settings) in case you want to customize DistractionFreeWindow.
