@@ -1,5 +1,5 @@
-DistractionFreeWindow (0.6)
-===========================
+DistractionFreeWindow (0.6.1)
+=============================
 
 * DistractionFreeWindow now also hides the menu by default when
   DFW mode is enabled. You can change this in your user settings.
