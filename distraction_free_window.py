@@ -188,7 +188,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                     return (state1_w < state2_w)
 
     def is_menu_visible(self):
-        if ST3098:
+        if ST3116:
             return self.window.is_menu_visible()
         else:
             if ST3:
