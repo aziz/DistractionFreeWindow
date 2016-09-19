@@ -1,6 +1,5 @@
-DistractionFreeWindow (0.6.2)
+DistractionFreeWindow (0.6.3)
 =============================
 
-* DistractionFreeWindow had a small regression where it was trying
-  to find out whether or not the menu was shown on Builds before
-  3116, which is fixed now.
+* DistractionFreeWindow's menu related code is now hidden
+  for OSX versions of Sublime Text as reported in #19.
