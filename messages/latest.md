@@ -1,4 +1,4 @@
-DistractionFreeWindow (0.6.4)
-=============================
+Version 0.6.5:
 
-* This is a minor bug fix release addressing #20.
+* Added installation message for use with Package Control.
+* Updated screencast GIF for documentation.

@@ -1,3 +1,4 @@
 {
-    "0.6.4": "messages/latest.md"
+    "install": "messages/install.md",
+    "0.6.5": "messages/latest.md"
 }
