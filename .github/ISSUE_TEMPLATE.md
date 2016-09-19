@@ -15,7 +15,7 @@ Any other information you want to share that is relevant to the issue being repo
 
 ```text
 DistractionFreeWindow:
-    release:        0.6.3
+    release:        0.6.4
 
 Sublime Text:
     channel:        stable / dev
