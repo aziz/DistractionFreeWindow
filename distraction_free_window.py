@@ -26,7 +26,8 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         prestine['status_bar_vis']     = status_bar_vis      = self.is_status_bar_visible()
         prestine['tabs_vis']           = tabs_vis            = self.is_tabs_visible()
         prestine['side_bar_vis']       = side_bar_vis        = self.is_side_bar_visible()
-        prestine['menu_vis']           = menu_vis            = self.is_menu_visible()
+        if sublime.platform() not "osx":
+            prestine['menu_vis']           = menu_vis            = self.is_menu_visible()
 
         prestine['gutter_vis']         = gutter_vis          = v.settings().get('gutter', True)
         prestine['line_numbers_vis']   = line_numbers_vis    = v.settings().get('line_numbers', True)
@@ -53,11 +54,12 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                     self.window.set_sidebar_visible(False)
                 else:
                     self.window.run_command('toggle_side_bar')
-            if dfw_settings.get('dfw_hide_menu') and menu_vis:
-                if ST3098:
-                    self.window.set_menu_visible(False)
-                else:
-                    self.window.run_command('toggle_menu')
+            if sublime.platform() not "osx":
+                if dfw_settings.get('dfw_hide_menu') and menu_vis:
+                    if ST3098:
+                        self.window.set_menu_visible(False)
+                    else:
+                        self.window.run_command('toggle_menu')
 
             if dfw_settings.get('dfw_hide_gutter'):
                 self.window_setting_set('gutter', False)
@@ -94,11 +96,12 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                     self.window.set_sidebar_visible(prestine_state['side_bar_vis'])
                 else:
                     self.window.run_command('toggle_side_bar')
-            if menu_vis != prestine_state['menu_vis']:
-                if ST3098:
-                    self.window.set_menu_visible(prestine_state['menu_vis'])
-                else:
-                    self.window.run_command('toggle_menu')
+            if sublime.platform() not "osx":
+                if menu_vis != prestine_state['menu_vis']:
+                    if ST3098:
+                        self.window.set_menu_visible(prestine_state['menu_vis'])
+                    else:
+                        self.window.run_command('toggle_menu')
 
             if dfw_settings.get('dfw_hide_gutter'):
                 self.window_setting_erase('gutter')
