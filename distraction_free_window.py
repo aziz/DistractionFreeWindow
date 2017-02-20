@@ -62,20 +62,20 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                         self.window.run_command('toggle_menu')
 
             if dfw_settings.get('dfw_hide_gutter'):
-                self.window_setting_set('gutter', False)
+                self.all_views_in_window_setting_set('gutter', False)
             if dfw_settings.get('dfw_hide_line_numbers'):
-                self.window_setting_set('line_numbers', False)
+                self.all_views_in_window_setting_set('line_numbers', False)
             if dfw_settings.get('dfw_hide_fold_buttons'):
-                self.window_setting_set('fold_buttons', False)
+                self.all_views_in_window_setting_set('fold_buttons', False)
             if dfw_settings.get('dfw_hide_rulers'):
-                self.window_setting_set('rulers', [])
+                self.all_views_in_window_setting_set('rulers', [])
             if dfw_settings.get('dfw_hide_indent_guides'):
-                self.window_setting_set('draw_indent_guides', False)
+                self.all_views_in_window_setting_set('draw_indent_guides', False)
             if dfw_settings.get('dfw_hide_white_space'):
-                self.window_setting_set('draw_white_space', 'none')
+                self.all_views_in_window_setting_set('draw_white_space', 'none')
             if dfw_settings.get('dfw_draw_centered'):
-                self.window_setting_set('draw_centered', True)
-                self.window_setting_set('wrap_width', dfw_settings.get('dfw_wrap_width'))
+                self.all_views_in_window_setting_set('draw_centered', True)
+                self.all_views_in_window_setting_set('wrap_width', dfw_settings.get('dfw_wrap_width'))
 
             if dfw_settings.get('dfw_switch_to_single_layout'):
                 self.window.run_command('max_pane')
@@ -104,20 +104,20 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                         self.window.run_command('toggle_menu')
 
             if dfw_settings.get('dfw_hide_gutter'):
-                self.window_setting_erase('gutter')
+                self.all_views_in_window_setting_erase('gutter')
             if dfw_settings.get('dfw_hide_line_numbers'):
-                self.window_setting_erase('line_numbers')
+                self.all_views_in_window_setting_erase('line_numbers')
             if dfw_settings.get('dfw_hide_fold_buttons'):
-                self.window_setting_erase('fold_buttons')
+                self.all_views_in_window_setting_erase('fold_buttons')
             if dfw_settings.get('dfw_hide_rulers'):
-                self.window_setting_erase('rulers')
+                self.all_views_in_window_setting_erase('rulers')
             if dfw_settings.get('dfw_hide_indent_guides'):
-                self.window_setting_erase('draw_indent_guides')
+                self.all_views_in_window_setting_erase('draw_indent_guides')
             if dfw_settings.get('dfw_hide_white_space'):
-                self.window_setting_erase('draw_white_space')
+                self.all_views_in_window_setting_erase('draw_white_space')
             if dfw_settings.get('dfw_draw_centered'):
-                self.window_setting_erase('draw_centered')
-                self.window_setting_erase('wrap_width')
+                self.all_views_in_window_setting_erase('draw_centered')
+                self.all_views_in_window_setting_erase('wrap_width')
 
             if dfw_settings.get('dfw_switch_to_single_layout'):
                 self.window.run_command('max_pane')
@@ -138,6 +138,14 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         else:
             for v in self.window.views():
                 v.settings().erase(setting_variable)
+
+    def all_views_in_window_setting_set(self, setting_variable, setting_value):
+        for v in self.window.views():
+            v.settings().set(setting_variable, setting_value)
+
+    def all_views_in_window_setting_erase(self, setting_variable):
+        for v in self.window.views():
+            v.settings().erase(setting_variable)
 
     def is_tabs_visible(self):
         if ST3116:
@@ -178,29 +186,27 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     def is_side_bar_visible(self):
         if ST3098:
             return self.window.is_sidebar_visible()
+        elif ST3:
+            return self.window.settings().get('dfw_side_bar_vis', True)
         else:
-            if ST3:
-                return self.window.settings().get('dfw_side_bar_vis', True)
-            else:
-                v = self.window.active_view()
-                state1_w = v.viewport_extent()[0]
-                self.window.run_command('toggle_side_bar')
-                state2_w = v.viewport_extent()[0]
-                self.window.run_command('toggle_side_bar')
-                if state1_w and state2_w:
-                    return (state1_w < state2_w)
+            v = self.window.active_view()
+            state1_w = v.viewport_extent()[0]
+            self.window.run_command('toggle_side_bar')
+            state2_w = v.viewport_extent()[0]
+            self.window.run_command('toggle_side_bar')
+            if state1_w and state2_w:
+                return (state1_w < state2_w)
 
     def is_menu_visible(self):
         if ST3116:
             return self.window.is_menu_visible()
+        elif ST3:
+            return self.window.settings().get('dfw_menu_vis', True)
         else:
-            if ST3:
-                return self.window.settings().get('dfw_menu_vis', True)
-            else:
-                v = self.window.active_view()
-                state1_w = v.viewport_extent()[1]
-                self.window.run_command('toggle_menu')
-                state2_w = v.viewport_extent()[1]
-                self.window.run_command('toggle_menu')
-                if state1_w and state2_w:
-                    return (state1_w < state2_w)
+            v = self.window.active_view()
+            state1_w = v.viewport_extent()[1]
+            self.window.run_command('toggle_menu')
+            state2_w = v.viewport_extent()[1]
+            self.window.run_command('toggle_menu')
+            if state1_w and state2_w:
+                return (state1_w < state2_w)

@@ -1,4 +1,4 @@
-Version 0.6.5:
+Version 0.6.6:
 
-* Added installation message for use with Package Control.
-* Updated screencast GIF for documentation.
+* fixed entries for non-English menus
+* fix [#23](https://github.com/aziz/DistractionFreeWindow/issues/23)
