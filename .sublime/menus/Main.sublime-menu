@@ -14,7 +14,7 @@
 								"command": "open_file",
 								"args":
 								{
-									"file": "${packages}/DistractionFreeWindow/settings/distraction_free_window.sublime-settings"
+									"file": "${packages}/DistractionFreeWindow/.sublime/settings/distraction_free_window.sublime-settings"
 								},
 								"caption": "Settings - Default"
 							},
@@ -31,7 +31,7 @@
 								"command": "open_file",
 								"args":
 								{
-									"file": "${packages}/DistractionFreeWindow/input-maps/Default.sublime-keymap"
+									"file": "${packages}/DistractionFreeWindow/.sublime/input-maps/Default.sublime-keymap"
 								},
 								"caption": "Key Bindings - Default"
 							},
@@ -39,7 +39,7 @@
 								"command": "open_file",
 								"args":
 								{
-									"file": "${packages}/User/Default ($platform).sublime-keymap"
+									"file": "${packages}/User/Default (${platform}).sublime-keymap"
 								},
 								"caption": "Key Bindings - User"
 							}

@@ -7,7 +7,7 @@
 <br>
 
 <p align="center">
-  <img width="750" src="docs/screencast.gif" alt="Screencast">
+  <img width="750" src="https://raw.githubusercontent.com/aziz/DistractionFreeWindow/master/docs/screencast.gif" alt="Screencast">
 </p>
 
 <br>

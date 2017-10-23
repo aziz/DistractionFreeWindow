@@ -1,0 +1,46 @@
+{
+//	hide tabs in DistractionFreeWindow mode
+	"dfw_hide_tabs": true,
+
+//  hide status bar in DistractionFreeWindow mode
+	"dfw_hide_status_bar": true,
+
+//  hide minimap in DistractionFreeWindow mode
+	"dfw_hide_minimap": true,
+
+//	hide side bar in DistractionFreeWindow mode
+	"dfw_hide_side_bar": true,
+
+// 	hide menu in DistractionFreeWindow mode
+	"dfw_hide_menu": true,
+
+//	hide rulers in DistractionFreeWindow mode
+	"dfw_hide_rulers": true,
+
+//	hide indent guides in DistractionFreeWindow mode
+	"dfw_hide_indent_guides": true,
+
+//	hide whitespace in DistractionFreeWindow mode
+	"dfw_hide_white_space": true,
+
+//	hide line numbers in DistractionFreeWindow mode
+	"dfw_hide_line_numbers": false,
+
+//	hide fold buttons in DistractionFreeWindow mode
+	"dfw_hide_fold_buttons": false,
+
+//	hide gutter in DistractionFreeWindow mode
+	"dfw_hide_gutter": false,
+
+//	draw code in window centered in DistractionFreeWindow,
+//	requires dfw_wrap_width being set
+	"dfw_draw_centered": false,
+
+//	wrap code in DistractionFreeWindow mode,
+//	it is encouraged to also set dfw_draw_centered: true
+//	when using this setting
+	"dfw_wrap_width": 90,
+
+//  switch to single layout with MaxPane package
+	"dfw_switch_to_single_layout": true
+}
