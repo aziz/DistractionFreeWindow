@@ -103,15 +103,15 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                     else:
                         self.window.run_command('toggle_menu')
 
-            if gutter_vis != dfw_settings.get('dfw_hide_gutter'):
+            if dfw_settings.get('dfw_hide_gutter'):
                 self.all_views_in_window_setting_erase('gutter')
-            if line_numbers_vis != dfw_settings.get('dfw_hide_line_numbers'):
+            if dfw_settings.get('dfw_hide_line_numbers'):
                 self.all_views_in_window_setting_erase('line_numbers')
             if dfw_settings.get('dfw_hide_fold_buttons'):
                 self.all_views_in_window_setting_erase('fold_buttons')
             if dfw_settings.get('dfw_hide_rulers'):
                 self.all_views_in_window_setting_erase('rulers')
-            if indent_guides_vis != dfw_settings.get('dfw_hide_indent_guides'):
+            if dfw_settings.get('dfw_hide_indent_guides'):
                 self.all_views_in_window_setting_erase('draw_indent_guides')
             if dfw_settings.get('dfw_hide_white_space'):
                 self.all_views_in_window_setting_erase('draw_white_space')

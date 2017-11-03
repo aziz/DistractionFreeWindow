@@ -22,12 +22,12 @@
 
 ```text
 DistractionFreeWindow:
-    release:        0.6.7
+    release:        0.6.8
 
 Sublime Text:
     channel:        stable / dev
-    version:        Build xxx (portable)
+    version:        Build ... (portable)
     platform:       Linux / OSX / Windows
     architecture:   x32 / x64
-    dpi_scale:      1.0
+    dpi_scale:      ...
 ```
