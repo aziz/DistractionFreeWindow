@@ -1,3 +1,6 @@
-## DistractionFreeWindow v0.6.8
+## DistractionFreeWindow v1.0.0
 
-* fixed aziz/DistractionFreeWindow#25
+* created separate st2 and st3 branches
+  * future releases will be tagged with prefixes
+  * removed redundant code where applicable
+  * fixed aziz/DistractionFreeWindow#22

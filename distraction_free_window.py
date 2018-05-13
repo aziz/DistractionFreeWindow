@@ -6,15 +6,10 @@ import sublime
 import sublime_plugin
 
 
-ST3 = int(sublime.version()) >= 3000
-ST3098 = int(sublime.version()) >= 3098
-ST3116 = int(sublime.version()) >= 3116
-
-
 class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        v = self.window if ST3 else self.window.active_view()
+        v = self.window.active_view()
 
         is_in_dfm = v.settings().get('dfw_is_in_dfm', False)
         is_in_fs = v.settings().get('dfw_is_in_fs', False)
@@ -50,16 +45,10 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             if dfw_settings.get('dfw_hide_tabs') and tabs_vis:
                 self.window.run_command('toggle_tabs')
             if dfw_settings.get('dfw_hide_side_bar') and side_bar_vis:
-                if ST3098:
-                    self.window.set_sidebar_visible(False)
-                else:
-                    self.window.run_command('toggle_side_bar')
+                self.window.run_command('toggle_side_bar')
             if sublime.platform() is not 'osx':
                 if dfw_settings.get('dfw_hide_menu') and menu_vis:
-                    if ST3098:
-                        self.window.set_menu_visible(False)
-                    else:
-                        self.window.run_command('toggle_menu')
+                    self.window.run_command('toggle_menu')
 
             if dfw_settings.get('dfw_hide_gutter') and gutter_vis:
                 self.all_views_in_window_setting_set('gutter', False)
@@ -92,16 +81,10 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             if tabs_vis != prestine_state['tabs_vis']:
                 self.window.run_command('toggle_tabs')
             if side_bar_vis != prestine_state['side_bar_vis']:
-                if ST3098:
-                    self.window.set_sidebar_visible(prestine_state['side_bar_vis'])
-                else:
-                    self.window.run_command('toggle_side_bar')
+                self.window.run_command('toggle_side_bar')
             if sublime.platform() is not 'osx':
                 if menu_vis != prestine_state['menu_vis']:
-                    if ST3098:
-                        self.window.set_menu_visible(prestine_state['menu_vis'])
-                    else:
-                        self.window.run_command('toggle_menu')
+                    self.window.run_command('toggle_menu')
 
             if dfw_settings.get('dfw_hide_gutter'):
                 self.all_views_in_window_setting_erase('gutter')
@@ -126,18 +109,12 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             self.window_setting_set('dfw_mode', False)
 
     def window_setting_set(self, setting_variable, setting_value):
-        if ST3:
-            self.window.settings().set(setting_variable, setting_value)
-        else:
-            for v in self.window.views():
-                v.settings().set(setting_variable, setting_value)
+        for v in self.window.views():
+            v.settings().set(setting_variable, setting_value)
 
     def window_setting_erase(self, setting_variable):
-        if ST3:
-            self.window.settings().erase(setting_variable)
-        else:
-            for v in self.window.views():
-                v.settings().erase(setting_variable)
+        for v in self.window.views():
+            v.settings().erase(setting_variable)
 
     def all_views_in_window_setting_set(self, setting_variable, setting_value):
         for v in self.window.views():
@@ -148,65 +125,46 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             v.settings().erase(setting_variable)
 
     def is_tabs_visible(self):
-        if ST3116:
-            return self.window.get_tabs_visible()
-        else:
-            v = self.window.active_view()
-            state1_h = v.viewport_extent()[1]
-            self.window.run_command('toggle_tabs')
-            state2_h = v.viewport_extent()[1]
-            self.window.run_command('toggle_tabs')
-            if state1_h and state2_h:
-                return (state1_h < state2_h)
+        v = self.window.active_view()
+        state1_h = v.viewport_extent()[1]
+        self.window.run_command('toggle_tabs')
+        state2_h = v.viewport_extent()[1]
+        self.window.run_command('toggle_tabs')
+        if state1_h and state2_h:
+            return (state1_h < state2_h)
 
     def is_minimap_visible(self):
-        if ST3116:
-            return self.window.is_minimap_visible()
-        else:
-            v = self.window.active_view()
-            state1_w = v.viewport_extent()[0]
-            self.window.run_command('toggle_minimap')
-            state2_w = v.viewport_extent()[0]
-            self.window.run_command('toggle_minimap')
-            if state1_w and state2_w:
-                return (state1_w < state2_w)
+        v = self.window.active_view()
+        state1_w = v.viewport_extent()[0]
+        self.window.run_command('toggle_minimap')
+        state2_w = v.viewport_extent()[0]
+        self.window.run_command('toggle_minimap')
+        if state1_w and state2_w:
+            return (state1_w < state2_w)
 
     def is_status_bar_visible(self):
-        if ST3116:
-            return self.window.is_status_bar_visible()
-        else:
-            v = self.window.active_view()
-            state1_h = v.viewport_extent()[1]
-            self.window.run_command('toggle_status_bar')
-            state2_h = v.viewport_extent()[1]
-            self.window.run_command('toggle_status_bar')
-            if state1_h and state2_h:
-                return (state1_h < state2_h)
+        v = self.window.active_view()
+        state1_h = v.viewport_extent()[1]
+        self.window.run_command('toggle_status_bar')
+        state2_h = v.viewport_extent()[1]
+        self.window.run_command('toggle_status_bar')
+        if state1_h and state2_h:
+            return (state1_h < state2_h)
 
     def is_side_bar_visible(self):
-        if ST3098:
-            return self.window.is_sidebar_visible()
-        elif ST3:
-            return self.window.settings().get('dfw_side_bar_vis', True)
-        else:
-            v = self.window.active_view()
-            state1_w = v.viewport_extent()[0]
-            self.window.run_command('toggle_side_bar')
-            state2_w = v.viewport_extent()[0]
-            self.window.run_command('toggle_side_bar')
-            if state1_w and state2_w:
-                return (state1_w < state2_w)
+        v = self.window.active_view()
+        state1_w = v.viewport_extent()[0]
+        self.window.run_command('toggle_side_bar')
+        state2_w = v.viewport_extent()[0]
+        self.window.run_command('toggle_side_bar')
+        if state1_w and state2_w:
+            return (state1_w < state2_w)
 
     def is_menu_visible(self):
-        if ST3116:
-            return self.window.is_menu_visible()
-        elif ST3:
-            return self.window.settings().get('dfw_menu_vis', True)
-        else:
-            v = self.window.active_view()
-            state1_w = v.viewport_extent()[1]
-            self.window.run_command('toggle_menu')
-            state2_w = v.viewport_extent()[1]
-            self.window.run_command('toggle_menu')
-            if state1_w and state2_w:
-                return (state1_w < state2_w)
+        v = self.window.active_view()
+        state1_w = v.viewport_extent()[1]
+        self.window.run_command('toggle_menu')
+        state2_w = v.viewport_extent()[1]
+        self.window.run_command('toggle_menu')
+        if state1_w and state2_w:
+            return (state1_w < state2_w)

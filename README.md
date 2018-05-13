@@ -28,7 +28,7 @@ DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetex
 ### Installation via Package Control
 
 1. Install [Package Control](https://packagecontrol.io/installation) for [Sublime Text](https://www.sublimetext.com).
-  * Close and reopen Sublime Text when done.
+   * Close and reopen Sublime Text when done.
 2. Open the [Command Palette](http://docs.sublimetext.info/en/latest/extensibility/command_palette.html) via `Tools > Command Palette` from the main menu and select `Package Control: Install Package`.
 3. Select [`DistractionFreeWindow`](https://packagecontrol.io/packages/DistractionFreeWindow).
 
