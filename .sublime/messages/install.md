@@ -4,4 +4,4 @@ and accessible, yet it can be simple and sublime!
 
 The default keyboard shortcut is `Super + F11`.
 
-DistractionFreeWindow integrates directly with the MaxPane package.
+DistractionFreeWindow integrates directly with the `MaxPane` package.

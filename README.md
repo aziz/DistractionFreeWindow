@@ -39,10 +39,7 @@ DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetex
 
 ## Usage
 
-By default this plugin hides **tabs**, **status bar**, **side bar**, **menu** and **minimap**.
-You can also hide **line numbers**, **fold buttons**, **the whole gutter**.
-You can **center the text** and configure the width.
-See the [settings section](#settings) in case you want to customize DistractionFreeWindow.
+Use the keybinding `Super+F11` to toggle DistractionFreeWindow mode.
 
 ### Changing Layout
 
@@ -52,11 +49,14 @@ Users of the [`MaxPane`](https://packagecontrol.io/packages/MaxPane) plug-in wil
 
 ### Settings
 
-You can adjust the default settings via `Preferences > Package Settings > DistractionFreeWindow > Settings - User` from the main menu.
+DistractionFreeWindow inherits `distraction free mode` settings from the core application.
+You can set these via `Preferences > Settings - Distraction Free`, compare the official docs:
+
+<https://www.sublimetext.com/docs/3/distraction_free.html>
 
 ### Key Bindings
 
-You can adjust the default key binding <kbd>Super</kbd><kbd>F11</kbd> via `Preferences > Key Bindings` from the main menu.
+You can adjust the default key binding <kbd>Super</kbd><kbd>F11</kbd> via `Preferences > Package Settings > DistractionFreeWindow > Key Bindings` from the main menu.
 
 ## License
 

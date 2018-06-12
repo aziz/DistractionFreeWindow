@@ -4,35 +4,12 @@
 		"command": "distraction_free_window"
 	},
 	{
-		"command": "open_file",
+		"caption": "DistractionFreeWindow: Key Bindings",
+		"command": "edit_settings",
 		"args":
 		{
-			"file": "${packages}/DistractionFreeWindow/.sublime/settings/distraction_free_window.sublime-settings"
-		},
-		"caption": "DistractionFreeWindow: Settings - Default"
-	},
-	{
-		"command": "open_file",
-		"args":
-		{
-			"file": "${packages}/User/distraction_free_window.sublime-settings"
-		},
-		"caption": "DistractionFreeWindow: Settings - User"
-	},
-	{
-		"command": "open_file",
-		"args":
-		{
-			"file": "${packages}/DistractionFreeWindow/.sublime/input-maps/Default.sublime-keymap"
-		},
-		"caption": "DistractionFreeWindow: Key Bindings - Default"
-	},
-	{
-		"command": "open_file",
-		"args":
-		{
-			"file": "${packages}/User/Default (${platform}).sublime-keymap"
-		},
-		"caption": "DistractionFreeWindow: Key Bindings - User"
+			"base_file": "${packages}/DistractionFreeWindow/.sublime/input-maps/Default (${platform}).sublime-keymap",
+			"default": "[\n\t$0\n]"
+		}
 	}
 ]
