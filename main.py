@@ -21,9 +21,12 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             _status_msg('Error: Active view is a widget.')
             return
 
+        # Preferences > Settings - Distraction Free
+        DF_PREF = sublime.load_settings('Distraction Free.sublime-settings')
+        # Preferences > Settings
+        PREF = sublime.load_settings('Preferences.sublime-settings')
+
         if w.is_sidebar_visible():
-            # Preferences > Settings - Distraction Free
-            DF_PREF = sublime.load_settings('Distraction Free.sublime-settings')
             for v in w.views():
                 vs = v.settings()
                 vs.set('draw_centered', DF_PREF.get('draw_centered', True))
@@ -36,15 +39,17 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 vs.set('scroll_past_end', DF_PREF.get('scroll_past_end', True))
                 vs.set('word_wrap', DF_PREF.get('word_wrap', True))
                 vs.set('wrap_width', DF_PREF.get('wrap_width', 80))
-            if sublime.platform() is not 'osx':
-                w.set_menu_visible(False)
+            if PREF.get('distraction_free_window.toggle_menu', True):
+                if sublime.platform() in ['linux', 'windows']:
+                    w.set_menu_visible(False)
             w.set_sidebar_visible(False)
-            w.set_tabs_visible(False)
-            w.set_minimap_visible(False)
-            # w.set_status_bar_visible(False)
+            if PREF.get('distraction_free_window.toggle_tabs', True):
+                w.set_tabs_visible(False)
+            if PREF.get('distraction_free_window.toggle_minimap', True):
+                w.set_minimap_visible(False)
+            if PREF.get('distraction_free_window.toggle_status_bar', False):
+                w.set_status_bar_visible(False)
         else:
-            # Preferences > Settings
-            PREF = sublime.load_settings('Preferences.sublime-settings')
             for v in w.views():
                 vs = v.settings()
                 vs.set('draw_centered', PREF.get('draw_centered', False))
@@ -57,12 +62,16 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 vs.set('scroll_past_end', PREF.get('scroll_past_end', True))
                 vs.set('word_wrap', PREF.get('word_wrap', 'auto'))
                 vs.set('wrap_width', PREF.get('wrap_width', 0))
-            if sublime.platform() is not 'osx':
-                w.set_menu_visible(True)
+            if PREF.get('distraction_free_window.toggle_menu', True):
+                if sublime.platform() in ['linux', 'windows']:
+                    w.set_menu_visible(True)
             w.set_sidebar_visible(True)
-            w.set_tabs_visible(True)
-            w.set_minimap_visible(True)
-            # w.set_status_bar_visible(True)
+            if PREF.get('distraction_free_window.toggle_tabs', True):
+                w.set_tabs_visible(True)
+            if PREF.get('distraction_free_window.toggle_minimap', True):
+                w.set_minimap_visible(True)
+            if PREF.get('distraction_free_window.toggle_status_bar', False):
+                w.set_status_bar_visible(True)
 
         try:
             # toggle MaxPane if found

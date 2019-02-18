@@ -54,6 +54,19 @@ You can set these via `Preferences > Settings - Distraction Free`, compare the o
 
 <https://www.sublimetext.com/docs/3/distraction_free.html>
 
+The following toggle actions can be customized:
+
+```json
+// Packages/User/Preferences.sublime-settings
+
+{
+    "distraction_free_window.toggle_menu": true,
+    "distraction_free_window.toggle_minimap": true,
+    "distraction_free_window.toggle_status_bar": true,
+    "distraction_free_window.toggle_tabs": true
+}
+```
+
 ### Key Bindings
 
 You can adjust the default key binding <kbd>Super</kbd><kbd>F11</kbd> via `Preferences > Package Settings > DistractionFreeWindow > Key Bindings` from the main menu.
