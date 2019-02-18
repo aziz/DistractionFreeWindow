@@ -1,4 +1,5 @@
 {
 	"install": ".sublime/messages/install.md",
-	"1.0.0": ".sublime/messages/latest.md"
+	"1.0.0": ".sublime/messages/1.0.0.md",
+    "1.0.1": ".sublime/messages/1.0.1.md"
 }

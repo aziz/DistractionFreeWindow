@@ -1,2 +1,12 @@
-*       text    eol=lf
-*.gif   binary  export-ignore
+*                               text    eol=lf
+*.py                                    whitespace=tab-in-indent,trailing-space,tabwidth=4
+
+.github/                                export-ignore
+.sublime/commands/**.sublime-commands   whitespace=-tab-in-indent,trailing-space,tabwidth=4
+.sublime/input-maps/**.sublime-keymap   whitespace=-tab-in-indent,trailing-space,tabwidth=4
+.sublime/menus/**.sublime-menu          whitespace=-tab-in-indent,trailing-space,tabwidth=4
+.sublime/messages/**.md                 whitespace=tab-in-indent,trailing-space,tabwidth=2
+docs/                                   export-ignore
+
+.gitattributes                          export-ignore
+.gitignore                              export-ignore
