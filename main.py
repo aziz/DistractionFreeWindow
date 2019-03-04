@@ -26,6 +26,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         # Preferences > Settings
         PREF = sublime.load_settings('Preferences.sublime-settings')
 
+        # Not in distraction free mode
         if w.is_sidebar_visible():
             for v in w.views():
                 vs = v.settings()
@@ -49,19 +50,21 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 w.set_minimap_visible(False)
             if PREF.get('distraction_free_window.toggle_status_bar', False):
                 w.set_status_bar_visible(False)
+        # In distraction free mode
         else:
             for v in w.views():
                 vs = v.settings()
-                vs.set('draw_centered', PREF.get('draw_centered', False))
-                vs.set('draw_indent_guides', PREF.get('draw_indent_guides', True))
-                vs.set('draw_white_space', PREF.get('draw_white_space', 'selection'))
-                vs.set('fold_buttons', PREF.get('fold_buttons', True))
-                vs.set('gutter', PREF.get('gutter', True))
-                vs.set('line_numbers', PREF.get('line_numbers', True))
-                vs.set('rulers', PREF.get('rulers', []))
-                vs.set('scroll_past_end', PREF.get('scroll_past_end', True))
-                vs.set('word_wrap', PREF.get('word_wrap', 'auto'))
-                vs.set('wrap_width', PREF.get('wrap_width', 0))
+
+                self.reset_setting(vs, PREF, 'draw_centered', False)
+                self.reset_setting(vs, PREF, 'draw_indent_guides', True)
+                self.reset_setting(vs, PREF, 'draw_white_space', 'selection')
+                self.reset_setting(vs, PREF, 'fold_buttons', True)
+                self.reset_setting(vs, PREF, 'gutter', True)
+                self.reset_setting(vs, PREF, 'line_numbers', True)
+                self.reset_setting(vs, PREF, 'rulers', [])
+                self.reset_setting(vs, PREF, 'scroll_past_end', True)
+                self.reset_setting(vs, PREF, 'word_wrap', 'auto')
+                self.reset_setting(vs, PREF, 'wrap_width', 0)
             if PREF.get('distraction_free_window.toggle_menu', True):
                 if sublime.platform() in ['linux', 'windows']:
                     w.set_menu_visible(True)
@@ -81,3 +84,15 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 self.window.run_command('max_pane')
         except Exception as e:
             pass
+
+    @staticmethod
+    def reset_setting(view_prefs, global_prefs, setting, default):
+        """Resets a viewport setting to it's state before distraction free mode."""
+        # Syntax has the format 'Packages/[SYNTAX]/[SYNTAX].sublime-syntax'
+        syntax = view_prefs.get('syntax').split('/')[1]
+
+        # Preferences > Syntax Specific
+        syntax_prefs = sublime.load_settings(syntax + '.sublime-settings')
+
+        # First load the syntax settings, if they don't exist load the global setting
+        view_prefs.set(setting, syntax_prefs.get(setting, global_prefs.get(setting, default)))
