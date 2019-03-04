@@ -55,16 +55,24 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             for v in w.views():
                 vs = v.settings()
 
-                self.reset_setting(vs, PREF, 'draw_centered', False)
-                self.reset_setting(vs, PREF, 'draw_indent_guides', True)
-                self.reset_setting(vs, PREF, 'draw_white_space', 'selection')
-                self.reset_setting(vs, PREF, 'fold_buttons', True)
-                self.reset_setting(vs, PREF, 'gutter', True)
-                self.reset_setting(vs, PREF, 'line_numbers', True)
-                self.reset_setting(vs, PREF, 'rulers', [])
-                self.reset_setting(vs, PREF, 'scroll_past_end', True)
-                self.reset_setting(vs, PREF, 'word_wrap', 'auto')
-                self.reset_setting(vs, PREF, 'wrap_width', 0)
+                # Syntax has the format 'Packages/[SYNTAX?]/[SYNTAX].sublime-syntax'
+                # To be safe, I've chosen to get the syntax from the filename, not from
+                # its directory (so no 'split('/')[1]' here).
+                syntax = vs.get('syntax').split('/')[-1].split('.')[0]
+
+                # Preferences > Syntax Specific
+                SYN_PREF = sublime.load_settings(syntax + '.sublime-settings')
+
+                self.reset_setting(vs, SYN_PREF, PREF, 'draw_centered', False)
+                self.reset_setting(vs, SYN_PREF, PREF, 'draw_indent_guides', True)
+                self.reset_setting(vs, SYN_PREF, PREF, 'draw_white_space', 'selection')
+                self.reset_setting(vs, SYN_PREF, PREF, 'fold_buttons', True)
+                self.reset_setting(vs, SYN_PREF, PREF, 'gutter', True)
+                self.reset_setting(vs, SYN_PREF, PREF, 'line_numbers', True)
+                self.reset_setting(vs, SYN_PREF, PREF, 'rulers', [])
+                self.reset_setting(vs, SYN_PREF, PREF, 'scroll_past_end', True)
+                self.reset_setting(vs, SYN_PREF, PREF, 'word_wrap', 'auto')
+                self.reset_setting(vs, SYN_PREF, PREF, 'wrap_width', 0)
             if PREF.get('distraction_free_window.toggle_menu', True):
                 if sublime.platform() in ['linux', 'windows']:
                     w.set_menu_visible(True)
@@ -86,17 +94,9 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             pass
 
     @staticmethod
-    def reset_setting(view_prefs, global_prefs, setting, default):
+    def reset_setting(view_prefs, syntax_prefs, global_prefs, setting, default):
         """
         Resets a viewport setting to it's state before distraction free mode.
         """
-        # Syntax has the format 'Packages/[SYNTAX?]/[SYNTAX].sublime-syntax'
-        # To be safe, I've chosen to get the syntax from the filename, not from
-        # its directory (so no 'split('/')[1]' here).
-        syntax = view_prefs.get('syntax').split('/')[-1].split('.')[0]
-
-        # Preferences > Syntax Specific
-        syntax_prefs = sublime.load_settings(syntax + '.sublime-settings')
-
         # First load the syntax settings, if they don't exist load the global setting
         view_prefs.set(setting, syntax_prefs.get(setting, global_prefs.get(setting, default)))
