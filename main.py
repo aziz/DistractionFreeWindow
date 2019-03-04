@@ -87,9 +87,13 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
     @staticmethod
     def reset_setting(view_prefs, global_prefs, setting, default):
-        """Resets a viewport setting to it's state before distraction free mode."""
-        # Syntax has the format 'Packages/[SYNTAX]/[SYNTAX].sublime-syntax'
-        syntax = view_prefs.get('syntax').split('/')[1]
+        """
+        Resets a viewport setting to it's state before distraction free mode.
+        """
+        # Syntax has the format 'Packages/[SYNTAX?]/[SYNTAX].sublime-syntax'
+        # To be safe, I've chosen to get the syntax from the filename, not from
+        # its directory (so no 'split('/')[1]' here).
+        syntax = view_prefs.get('syntax').split('/')[-1].split('.')[0]
 
         # Preferences > Syntax Specific
         syntax_prefs = sublime.load_settings(syntax + '.sublime-settings')
