@@ -26,7 +26,11 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         # Preferences > Settings
         PREF = sublime.load_settings('Preferences.sublime-settings')
 
-        if w.is_sidebar_visible():
+        ws = w.settings()
+
+        if not ws.get('distraction_free_window_active', False):
+            ws.set('distraction_free_window_active', True)
+
             for v in w.views():
                 vs = v.settings()
                 vs.set('draw_centered', DF_PREF.get('draw_centered', True))
@@ -50,6 +54,8 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             if PREF.get('distraction_free_window.toggle_status_bar', False):
                 w.set_status_bar_visible(False)
         else:
+            ws.set('distraction_free_window_active', False)
+
             for v in w.views():
                 vs = v.settings()
                 vs.set('draw_centered', PREF.get('draw_centered', False))
