@@ -22,7 +22,7 @@
 
 ```text
 DistractionFreeWindow:
-    release:        1.0.1
+    release:        1.1.1
 
 Sublime Text:
     channel:        stable / dev
