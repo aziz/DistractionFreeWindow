@@ -11,6 +11,10 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     def _status_msg(self, msg):
         self.window.status_message('Distraction Free Window: {}'.format(msg))
 
+    @staticmethod
+    def _reset_setting(view_prefs, syntax_prefs, global_prefs, setting, default):
+        view_prefs.set(setting, syntax_prefs.get(setting, global_prefs.get(setting, default)))
+
     def run(self):
         w = self.window
         if w is None:
@@ -26,7 +30,6 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         # Preferences > Settings
         PREF = sublime.load_settings('Preferences.sublime-settings')
 
-        # Not in distraction free mode
         if w.is_sidebar_visible():
             for v in w.views():
                 vs = v.settings()
@@ -50,29 +53,25 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 w.set_minimap_visible(False)
             if PREF.get('distraction_free_window.toggle_status_bar', False):
                 w.set_status_bar_visible(False)
-        # In distraction free mode
         else:
             for v in w.views():
                 vs = v.settings()
 
-                # Syntax has the format 'Packages/[SYNTAX?]/[SYNTAX].sublime-syntax'
-                # To be safe, I've chosen to get the syntax from the filename, not from
-                # its directory (so no 'split('/')[1]' here).
-                syntax = vs.get('syntax').split('/')[-1].split('.')[0]
+                current_syntax = vs.get('syntax').split('/')[-1].split('.')[0]
 
                 # Preferences > Syntax Specific
-                SYN_PREF = sublime.load_settings(syntax + '.sublime-settings')
+                SYNTAX_PREF = sublime.load_settings(current_syntax + '.sublime-settings')
 
-                self.reset_setting(vs, SYN_PREF, PREF, 'draw_centered', False)
-                self.reset_setting(vs, SYN_PREF, PREF, 'draw_indent_guides', True)
-                self.reset_setting(vs, SYN_PREF, PREF, 'draw_white_space', 'selection')
-                self.reset_setting(vs, SYN_PREF, PREF, 'fold_buttons', True)
-                self.reset_setting(vs, SYN_PREF, PREF, 'gutter', True)
-                self.reset_setting(vs, SYN_PREF, PREF, 'line_numbers', True)
-                self.reset_setting(vs, SYN_PREF, PREF, 'rulers', [])
-                self.reset_setting(vs, SYN_PREF, PREF, 'scroll_past_end', True)
-                self.reset_setting(vs, SYN_PREF, PREF, 'word_wrap', 'auto')
-                self.reset_setting(vs, SYN_PREF, PREF, 'wrap_width', 0)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'draw_centered', False)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'draw_indent_guides', True)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'draw_white_space', 'selection')
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'fold_buttons', True)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'gutter', True)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'line_numbers', True)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'rulers', [])
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'scroll_past_end', True)
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'word_wrap', 'auto')
+                self._reset_setting(vs, SYNTAX_PREF, PREF, 'wrap_width', 0)
             if PREF.get('distraction_free_window.toggle_menu', True):
                 if sublime.platform() in ['linux', 'windows']:
                     w.set_menu_visible(True)
@@ -92,11 +91,3 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 self.window.run_command('max_pane')
         except Exception as e:
             pass
-
-    @staticmethod
-    def reset_setting(view_prefs, syntax_prefs, global_prefs, setting, default):
-        """
-        Resets a viewport setting to it's state before distraction free mode.
-        """
-        # First load the syntax settings, if they don't exist load the global setting
-        view_prefs.set(setting, syntax_prefs.get(setting, global_prefs.get(setting, default)))
