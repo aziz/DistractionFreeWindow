@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import os
 
 import sublime
 import sublime_plugin
+
+
+class DistractionFreeWindowListener(sublime_plugin.EventListener):
+    def on_activated(self, view):
+        view.window().run_command("distraction_free_window", {"toggle": False})
 
 
 class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
@@ -11,14 +17,26 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
     def _status_msg(self, msg):
         self.window.status_message('Distraction Free Window: {}'.format(msg))
 
-    def run(self):
+    def run(self, toggle=True):
+        packages_path = sublime.packages_path()
+        session_file = os.path.join(os.path.dirname(packages_path), 'Local', 'Session.sublime_session')
+
+        session_settings = {}
+        try:
+            with open(session_file, "r") as file:
+                session_settings = sublime.decode_value(file.read())
+        except FileNotFoundError:
+            self._status_msg('Warning: Session file not found!')
+        except IOError:
+            self._status_msg('Warning: Could not read session file!')
+
         w = self.window
         if w is None:
-            _status_msg('Error: Window is None')
+            self._status_msg('Error: Window is None')
             return
 
         if w.active_view().settings().get('is_widget', False):
-            _status_msg('Error: Active view is a widget.')
+            self._status_msg('Error: Active view is a widget.')
             return
 
         # Preferences > Settings - Distraction Free
@@ -26,11 +44,10 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
         # Preferences > Settings
         PREF = sublime.load_settings('Preferences.sublime-settings')
 
-        ws = w.settings()
+        if toggle:
+            session_settings["distraction_free_window_active"] = not session_settings.get("distraction_free_window_active", True)
 
-        if not ws.get('distraction_free_window_active', False):
-            ws.set('distraction_free_window_active', True)
-
+        if session_settings["distraction_free_window_active"]:
             for v in w.views():
                 vs = v.settings()
                 vs.set('draw_centered', DF_PREF.get('draw_centered', True))
@@ -54,8 +71,6 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             if PREF.get('distraction_free_window.toggle_status_bar', False):
                 w.set_status_bar_visible(False)
         else:
-            ws.set('distraction_free_window_active', False)
-
             for v in w.views():
                 vs = v.settings()
                 vs.set('draw_centered', PREF.get('draw_centered', False))
@@ -79,11 +94,20 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
             if PREF.get('distraction_free_window.toggle_status_bar', False):
                 w.set_status_bar_visible(True)
 
-        try:
-            # toggle MaxPane if found
-            PKGCTRL_PREF = sublime.load_settings('Package Control.sublime-settings')
-            is_maxpane_installed = bool('MaxPane' in set(PKGCTRL_PREF.get('installed_packages', [])))
-            if is_maxpane_installed:
-                self.window.run_command('max_pane')
-        except Exception as e:
-            pass
+        if toggle:
+            try:
+                # toggle MaxPane if found
+                PKGCTRL_PREF = sublime.load_settings('Package Control.sublime-settings')
+                is_maxpane_installed = bool('MaxPane' in set(PKGCTRL_PREF.get('installed_packages', [])))
+                if is_maxpane_installed:
+                    self.window.run_command('max_pane')
+            except Exception as e:
+                pass
+
+            try:
+                with open(session_file, "w") as file:
+                    file.write(sublime.encode_value(session_settings, pretty=True))
+            except FileNotFoundError:
+                self._status_msg('Error: Session file not found! Mode was not saved!')
+            except IOError:
+                self._status_msg('Error: Could not write to session file! Mode was not saved!')

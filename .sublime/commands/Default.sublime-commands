@@ -2,6 +2,7 @@
 	{
 		"caption": "DistractionFreeWindow: Toggle Mode",
 		"command": "distraction_free_window"
+        "args": {"toggle": true}
 	},
 	{
 		"caption": "DistractionFreeWindow: Key Bindings",
