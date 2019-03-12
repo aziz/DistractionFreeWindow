@@ -105,7 +105,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
                 pass
 
             try:
-                with open(session_file, "w") as file:
+                with open(session_file, mode='w', newline='\n') as file:
                     file.write(sublime.encode_value(session_settings, pretty=True))
             except FileNotFoundError:
                 self._status_msg('Error: Session file not found! Mode was not saved!')
