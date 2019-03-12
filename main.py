@@ -16,7 +16,7 @@ class DistractionFreeWindowCommand(sublime_plugin.WindowCommand):
 
     def _status_msg(self, msg):
         self.window.status_message('Distraction Free Window: {}'.format(msg))
-        
+
     @staticmethod
     def _reset_setting(view_prefs, syntax_prefs, global_prefs, setting, default):
         view_prefs.set(setting, syntax_prefs.get(setting, global_prefs.get(setting, default)))
