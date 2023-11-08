@@ -18,7 +18,7 @@
 
 ## Description
 
-[Sublime Text](https://www.sublimetext.com)'s [`distraction free mode`](https://www.sublimetext.com/docs/3/distraction_free.html) but not full-screen!
+[Sublime Text](https://www.sublimetext.com)'s [`distraction free mode`](https://www.sublimetext.com/docs/distraction_free.html) but not full-screen!
 A windowed UI is more manageable and accessible, yet it can be simple and sublime!
 
 DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetext.com/t/non-fullscreen-distraction-free-mode/12343).
@@ -29,8 +29,9 @@ DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetex
 
 1. Install [Package Control](https://packagecontrol.io/installation) for [Sublime Text](https://www.sublimetext.com).
   * Close and reopen Sublime Text when done.
-2. Open the [Command Palette](http://docs.sublimetext.info/en/latest/extensibility/command_palette.html) via `Tools > Command Palette` from the main menu and select `Package Control: Install Package`.
-3. Select [`DistractionFreeWindow`](https://packagecontrol.io/packages/DistractionFreeWindow).
+1. Open the [Command Palette](http://docs.sublimetext.info/en/latest/extensibility/command_palette.html) via `Tools > Command Palette` from the main menu.
+1. Select `Package Control: Install Package`.
+1. Select [`DistractionFreeWindow`](https://packagecontrol.io/packages/DistractionFreeWindow).
 
 ### Manual installation
 
@@ -39,7 +40,7 @@ DistractionFreeWindow was inspired by [this forum post](https://forum.sublimetex
 
 ## Usage
 
-Use the keybinding `Super+F11` to toggle DistractionFreeWindow mode.
+Use the keybinding <kbd>Super</kbd><kbd>F11</kbd> to toggle DistractionFreeWindow mode.
 
 ### Changing Layout
 
@@ -52,11 +53,11 @@ Users of the [`MaxPane`](https://packagecontrol.io/packages/MaxPane) plug-in wil
 DistractionFreeWindow inherits `distraction free mode` settings from the core application.
 You can set these via `Preferences > Settings - Distraction Free`, compare the official docs:
 
-<https://www.sublimetext.com/docs/3/distraction_free.html>
+<https://www.sublimetext.com/docs/distraction_free.html>
 
 The following toggle actions can be customized:
 
-```json
+```jsonc
 // Packages/User/Preferences.sublime-settings
 
 {
